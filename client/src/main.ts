@@ -1,13 +1,16 @@
-import { vuetify } from './shared/ui/vuetify';
 import { createApp } from 'vue';
 import '@/app/styles/main.css';
 import App from './app/App.vue';
 import router from './router';
+import PrimeVue from 'primevue/config';
+import 'primevue/resources/themes/aura-light-green/theme.css';
+import { registrationComponents } from './shared/ui/components';
 
-const app = createApp(App);
+export const app = createApp(App);
 
 app.use(router);
+app.use(PrimeVue);
 
-app.use(vuetify);
+registrationComponents();
 
 app.mount('#app');
