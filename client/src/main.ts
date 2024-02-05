@@ -1,5 +1,11 @@
+import { vuetify } from './shared/ui/vuetify';
 import { createApp } from 'vue';
 import App from './app/App.vue';
-import { vuetify } from './vuetify';
 
-createApp(App).use(vuetify).mount('#app');
+const app = createApp(App);
+
+// app.use(router);
+
+app.use(vuetify);
+
+app.mount('#app');
