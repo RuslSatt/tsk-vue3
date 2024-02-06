@@ -15,7 +15,10 @@ export class AuthService {
 
     async login(userDto: LoginDto) {
         const user = await this.validateUser(userDto);
-        return this.generateToken(user);
+        const token = await this.generateToken(user);
+
+        const userData = { email: user.email, username: user.username };
+        return { user: userData, token: token.token };
     }
 
     private async validateUser(userDto: LoginDto) {
@@ -36,7 +39,10 @@ export class AuthService {
 
         const user = await this.userService.create({ ...userDto, password: hashPassword });
 
-        return this.generateToken(user);
+        const token = await this.generateToken(user);
+        const userData = { email: user.email, username: user.username };
+
+        return { user: userData, token: token.token };
     }
 
     private async generateToken(user: User) {
