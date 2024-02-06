@@ -9,8 +9,8 @@
 					<span v-if="isLogin">Нет аккаунта?</span>
 					<span v-else>Уже есть аккаунт?</span>
 
-					<p-button v-if="isLogin" v-on:click="handlerClick" class="link" link>Регистрация</p-button>
-					<p-button v-else v-on:click="handlerClick" class="link" link>Вход</p-button>
+					<p-button v-if="isLogin" v-on:click="changeView" class="link" link>Регистрация</p-button>
+					<p-button v-else v-on:click="changeView" class="link" link>Вход</p-button>
 				</span>
 
 				<p-input-text placeholder="Email" id="email" v-model="email" />
@@ -24,59 +24,43 @@
 					v-model="confirmPassword"
 				></p-password>
 
-				<p-button v-on:click="login" v-if="isLogin" class="button">Войти</p-button>
-				<p-button v-on:click="registration" v-else class="button">Зарегистрироваться</p-button>
+				<p-button v-on:click="handlerLogin" v-if="isLogin" class="button">Войти</p-button>
+				<p-button v-on:click="handlerRegistration" v-else class="button">Зарегистрироваться</p-button>
 			</form>
 		</template>
 	</p-card>
 </template>
 
-<script lang="ts">
-import { host } from '@/app/http/index';
-export default {
-	data() {
-		return {
-			email: '',
-			username: '',
-			password: '',
-			confirmPassword: '',
-			isLogin: true
-		};
-	},
-	methods: {
-		handlerClick() {
-			this.email = '';
-			this.password = '';
-			this.username = '';
-			this.confirmPassword = '';
-			this.isLogin = !this.isLogin;
-		},
-		async login() {
-			const response = await host.post('auth/login', {
-				email: this.email,
-				password: this.password
-			});
+<script setup lang="ts">
+import { ref } from 'vue';
+import { login } from '@/features/Auth/model/services/login';
+import { registration } from '@/features/Auth/model/services/registration';
+import { useRouter } from 'vue-router';
 
-			const token = response.data;
+const email = ref('');
+const password = ref('');
+const confirmPassword = ref('');
+const username = ref('');
+const isLogin = ref(true);
 
-			if (token) {
-				this.$router.push('/');
-			}
-		},
-		async registration() {
-			const response = await host.post('auth/registration', {
-				email: this.email,
-				username: this.username,
-				password: this.password
-			});
+const changeView = () => {
+	email.value = '';
+	password.value = '';
+	confirmPassword.value = '';
+	username.value = '';
+	isLogin.value = !isLogin.value;
+};
 
-			const token = response.data;
+const router = useRouter();
 
-			if (token) {
-				this.$router.push('/');
-			}
-		}
-	}
+const handlerLogin = async () => {
+	const result = await login(email.value, password.value);
+	if (result) router.push('/');
+};
+
+const handlerRegistration = async () => {
+	const result = await registration(email.value, password.value, username.value);
+	if (result) router.push('/');
 };
 </script>
 
