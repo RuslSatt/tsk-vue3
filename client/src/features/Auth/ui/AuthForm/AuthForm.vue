@@ -13,19 +13,19 @@
 					<p-button v-else v-on:click="changeView" class="link" link>Вход</p-button>
 				</span>
 
-				<p-input-text placeholder="Email" id="email" v-model="email" />
-				<p-input-text v-if="!isLogin" placeholder="Username" v-model="username" />
+				<p-input-text placeholder="Email" id="email" v-model="authStore.email" />
+				<p-input-text v-if="!isLogin" placeholder="Username" v-model="authStore.username" />
 
-				<p-password placeholder="Password" toggleMask v-model="password"></p-password>
+				<p-password placeholder="Password" toggleMask v-model="authStore.password"></p-password>
 				<p-password
 					v-if="!isLogin"
 					placeholder="Confirm password"
 					toggleMask
-					v-model="confirmPassword"
+					v-model="authStore.confirmPassword"
 				></p-password>
 
-				<p-button v-on:click="handlerLogin" v-if="isLogin" class="button">Войти</p-button>
-				<p-button v-on:click="handlerRegistration" v-else class="button">Зарегистрироваться</p-button>
+				<p-button v-on:click="authStore.loginUser" v-if="isLogin" class="button">Войти</p-button>
+				<p-button v-on:click="authStore.registrationUser" v-else class="button">Зарегистрироваться</p-button>
 			</form>
 		</template>
 	</p-card>
@@ -33,34 +33,16 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { login } from '@/features/Auth/model/services/login';
-import { registration } from '@/features/Auth/model/services/registration';
-import { useRouter } from 'vue-router';
 
-const email = ref('');
-const password = ref('');
-const confirmPassword = ref('');
-const username = ref('');
+import { useAuthStore } from '../../model/store/authStore';
+
+const authStore = useAuthStore();
+
 const isLogin = ref(true);
 
 const changeView = () => {
-	email.value = '';
-	password.value = '';
-	confirmPassword.value = '';
-	username.value = '';
+	authStore.$reset();
 	isLogin.value = !isLogin.value;
-};
-
-const router = useRouter();
-
-const handlerLogin = async () => {
-	const result = await login(email.value, password.value);
-	if (result) router.push('/');
-};
-
-const handlerRegistration = async () => {
-	const result = await registration(email.value, password.value, username.value);
-	if (result) router.push('/');
 };
 </script>
 

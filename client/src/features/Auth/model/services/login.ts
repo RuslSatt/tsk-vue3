@@ -1,16 +1,15 @@
-import { host } from '@/app/http';
-import { useUserStore } from '@/app/providers/store/store';
+import { api } from '@/app/http';
+import type { IUser } from '@/entities/user';
 
-export const login = async (email: string, password: string) => {
-	const response = await host.post('auth/login', {
-		email,
-		password
-	});
+export const login = async (email: string, password: string): Promise<IUser> => {
+	try {
+		const response = await api.post('auth/login', {
+			email,
+			password
+		});
 
-	const store = useUserStore();
-
-	store.setUser(response.data.user);
-	localStorage.setItem('token', response.data.token);
-
-	return response.data;
+		return response.data;
+	} catch (e: any) {
+		throw new Error(e.message);
+	}
 };
