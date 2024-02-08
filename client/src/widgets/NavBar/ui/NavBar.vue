@@ -1,5 +1,15 @@
 <template>
 	<header class="header">
+		<div class="menu-button">
+			<p-button
+				@click="$emit('hideMenu')"
+				class="icon"
+				severity="secondary"
+				text
+				rounded
+				icon="pi pi-bars"
+			></p-button>
+		</div>
 		<div class="buttons">
 			<p-button class="icon" severity="secondary" text rounded icon="pi pi-user"></p-button>
 			<p-button @click="onLogout" class="icon" severity="secondary" text rounded icon="pi pi-sign-out"></p-button>
@@ -27,6 +37,7 @@ const onLogout = () => {
 	display: flex;
 	align-items: center;
 	padding: 5px 10px;
+	border-bottom: 1px solid var(--surface-400);
 }
 
 .buttons {
