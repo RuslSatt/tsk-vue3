@@ -1,8 +1,12 @@
 <template>
-	<div class="sidebar" v-bind:class="{ hide: hide }"></div>
+	<div class="sidebar" v-bind:class="{ hide: hide }">
+		<sidebar-items></sidebar-items>
+	</div>
 </template>
 
 <script setup lang="ts">
+import SidebarItems from './SidebarItems.vue';
+
 defineProps({
 	hide: Boolean
 });
