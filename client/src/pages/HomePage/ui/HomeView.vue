@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<nav-bar @hide-menu="onHideMenu"></nav-bar>
 		<div class="main">
-			<side-bar :hide="hideMenu"></side-bar>
+			<side-bar></side-bar>
 			<div class="main__content">Home Page</div>
 		</div>
 	</div>
@@ -16,6 +16,7 @@ import NavBar from '@/widgets/Navbar';
 import SideBar from '@/widgets/SideBar';
 
 const userStore = useUserStore();
+const menu = ref();
 
 const initUser = () => {
 	userStore.initUser();
@@ -28,7 +29,7 @@ const initUser = () => {
 const hideMenu = ref(false);
 
 const onHideMenu = () => {
-	hideMenu.value = !hideMenu.value;
+	menu.value.hide = hideMenu.value;
 };
 
 onMounted(initUser);

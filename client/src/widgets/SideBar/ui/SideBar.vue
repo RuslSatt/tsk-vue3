@@ -1,23 +1,32 @@
 <template>
-	<div class="sidebar" v-bind:class="{ hide: hide }">
-		<sidebar-items></sidebar-items>
-	</div>
+	<p-menu
+		style="
+			flex: 0 0 240px;
+			background-color: var(--surface-300);
+			position: relative;
+			transition: 0.15s;
+			border-radius: 0;
+			border: 0;
+		"
+		class="sidebar"
+		:model="items"
+	>
+	</p-menu>
 </template>
 
 <script setup lang="ts">
-import SidebarItems from './SidebarItems.vue';
+import { SidebarItems } from '../model/items';
 
-defineProps({
-	hide: Boolean
-});
+const items = SidebarItems;
 </script>
 
 <style scoped>
-.sidebar {
+.p-menu {
 	flex: 0 0 240px;
 	background-color: var(--surface-300);
 	position: relative;
 	transition: 0.15s;
+	border-radius: none;
 }
 
 .hide {

@@ -6,9 +6,11 @@ export interface ISidebarItem {
 
 export const SidebarItems = [
 	{
-		label: 'Задачи'
+		label: 'Главная',
+		icon: 'pi pi-home'
 	},
 	{
-		label: 'Заметки'
+		label: 'Задачи',
+		icon: 'pi pi-check-circle'
 	}
 ];
