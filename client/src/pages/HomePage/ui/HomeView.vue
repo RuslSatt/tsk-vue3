@@ -3,7 +3,9 @@
 		<nav-bar @hide-menu="onHideMenu"></nav-bar>
 		<div class="main">
 			<side-bar></side-bar>
-			<div class="main__content">Home Page</div>
+			<div class="main__content">
+				<task-page />
+			</div>
 		</div>
 	</div>
 </template>
@@ -14,6 +16,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import NavBar from '@/widgets/Navbar';
 import SideBar from '@/widgets/SideBar';
+import TaskPage from '@/pages/TaskPage/ui/TaskPage.vue';
 
 const userStore = useUserStore();
 const menu = ref();
@@ -51,5 +54,6 @@ onMounted(initUser);
 	display: flex;
 	flex: 1;
 	flex-direction: column;
+	padding: 10px;
 }
 </style>
