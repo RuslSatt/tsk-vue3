@@ -16,4 +16,14 @@ export class TasksService {
         const task = await this.taskModel.findAll({ where: { userId }, include: { all: true } });
         return task;
     }
+
+    async update(task: Task) {
+        this.taskModel.update(task, {
+            where: { id: task.id },
+        });
+    }
+
+    async delete(id: number) {
+        this.taskModel.destroy({ where: { id } });
+    }
 }
