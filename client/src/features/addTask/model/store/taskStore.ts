@@ -43,6 +43,16 @@ export const useTaskStore = defineStore('task', {
 				this.error = e.message;
 			}
 			this.isLoading = false;
+		},
+
+		async updateTask(task: ITask) {
+			this.isLoading = true;
+			try {
+				await TaskService.update(task);
+			} catch (e: any) {
+				this.error = e.message;
+			}
+			this.isLoading = false;
 		}
 	}
 });
