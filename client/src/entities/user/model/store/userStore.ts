@@ -1,4 +1,4 @@
-import type { IUser, IUserSchema } from '../types/user';
+import type { IAuthUser, IUserSchema } from '../types/user';
 import { defineStore } from 'pinia';
 
 const initialState: IUserSchema = {
@@ -8,7 +8,7 @@ const initialState: IUserSchema = {
 export const useUserStore = defineStore('user', {
 	state: () => initialState,
 	actions: {
-		setUser(user: IUser) {
+		setUser(user: IAuthUser) {
 			this.authUser = user;
 		},
 		initUser() {
@@ -20,6 +20,11 @@ export const useUserStore = defineStore('user', {
 		logout() {
 			this.authUser = undefined;
 			localStorage.removeItem('user');
+		}
+	},
+	getters: {
+		getUser(): IAuthUser | undefined {
+			return this.authUser;
 		}
 	}
 });

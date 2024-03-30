@@ -17,8 +17,10 @@ import { useRouter } from 'vue-router';
 import NavBar from '@/widgets/Navbar';
 import SideBar from '@/widgets/SideBar';
 import TaskPage from '@/pages/TaskPage/ui/TaskPage.vue';
+import { useTaskStore } from '@/features/addTask';
 
 const userStore = useUserStore();
+const taskStore = useTaskStore();
 const menu = ref();
 
 const initUser = () => {
@@ -26,6 +28,8 @@ const initUser = () => {
 	if (!userStore.authUser) {
 		const router = useRouter();
 		router.push('/auth');
+	} else {
+		taskStore.getTasks(userStore.authUser.user.id);
 	}
 };
 

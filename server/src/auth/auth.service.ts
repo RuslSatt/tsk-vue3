@@ -17,7 +17,7 @@ export class AuthService {
         const user = await this.validateUser(userDto);
         const token = await this.generateToken(user);
 
-        const userData = { email: user.email, username: user.username };
+        const userData = { id: user.id, email: user.email, username: user.username };
         return { user: userData, token: token.token };
     }
 
@@ -40,7 +40,7 @@ export class AuthService {
         const user = await this.userService.create({ ...userDto, password: hashPassword });
 
         const token = await this.generateToken(user);
-        const userData = { email: user.email, username: user.username };
+        const userData = { id: user.id, email: user.email, username: user.username };
 
         return { user: userData, token: token.token };
     }
