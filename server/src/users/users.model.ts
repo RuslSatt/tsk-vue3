@@ -1,4 +1,5 @@
-import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript';
+import { HasMany, Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Task } from 'src/tasks/tasks.model';
 
 interface UserCreationAttrs {
     email: string;
@@ -19,4 +20,7 @@ export class User extends Model<User, UserCreationAttrs> {
 
     @Column({ type: DataType.STRING, allowNull: false })
     password: string;
+
+    @HasMany(() => Task)
+    tasks: Task[];
 }
