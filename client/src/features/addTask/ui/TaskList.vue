@@ -1,18 +1,37 @@
 <template>
 	<ul class="list">
-		<li v-for="task in store.tasks" :key="task.id" class="item">
+		<li v-for="task in taskStore.tasks" :key="task.id" class="item">
 			<input readonly="true" v-model="task.name" class="text" type="text" />
 			<div class="btn-container">
 				<button class="btn green">Edit</button>
-				<button class="btn">Delete</button>
+				<button @click="deleteTask(task)" class="btn">Delete</button>
 			</div>
 		</li>
 	</ul>
 </template>
 
-<script setup lang="ts">
-import { useTaskStore } from '@/features/addTask';
-const store = useTaskStore();
+<script lang="ts">
+import { useTaskStore, type ITask } from '@/features/addTask';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+	setup() {
+		const taskStore = useTaskStore();
+
+		return { taskStore };
+	},
+
+	methods: {
+		async deleteTask(task: ITask) {
+			if (!task.id) return;
+
+			await this.taskStore.deleteTask(task.id);
+			await this.taskStore.getTasks(task.userId);
+
+			console.log('delete');
+		}
+	}
+});
 </script>
 
 <style scoped>

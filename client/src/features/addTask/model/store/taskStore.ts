@@ -33,6 +33,16 @@ export const useTaskStore = defineStore('task', {
 				this.error = e.message;
 			}
 			this.isLoading = false;
+		},
+
+		async deleteTask(id: number) {
+			this.isLoading = true;
+			try {
+				await TaskService.delete(id);
+			} catch (e: any) {
+				this.error = e.message;
+			}
+			this.isLoading = false;
 		}
 	}
 });
