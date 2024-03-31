@@ -5,6 +5,7 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Dialog from 'primevue/dialog';
 import Card from 'primevue/card';
+import Password from 'primevue/password';
 
 export function registrationComponents() {
 	app.component('p-checkbox', Checkbox);
@@ -12,4 +13,5 @@ export function registrationComponents() {
 	app.component('p-input-text', InputText);
 	app.component('p-dialog', Dialog);
 	app.component('p-card', Card);
+	app.component('p-password', Password);
 }

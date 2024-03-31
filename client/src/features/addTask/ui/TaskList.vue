@@ -13,7 +13,7 @@
 						<p-checkbox @change="saveEdited(task)" v-model="task.completed" :binary="true" />
 					</div>
 
-					<p @click="toggleEdit">{{ task.name }}</p>
+					<p>{{ task.name }}</p>
 					<div class="item-buttons">
 						<p-button rounded raised icon="pi pi-pencil" type="success" />
 						<p-button
