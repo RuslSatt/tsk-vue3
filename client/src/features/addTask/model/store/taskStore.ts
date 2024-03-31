@@ -28,6 +28,7 @@ export const useTaskStore = defineStore('task', {
 			this.isLoading = true;
 			try {
 				const tasks = await TaskService.get(userId);
+				console.log(tasks);
 				if (tasks) this.tasks = tasks;
 			} catch (e: any) {
 				this.error = e.message;

@@ -1,16 +1,25 @@
 <template>
 	<div>
-		<el-button class="btn" @click="dialogVisible = true"> Добавить задачу </el-button>
+		<p-button class="btn" @click="dialogVisible = true"> Добавить задачу </p-button>
 
-		<el-dialog v-model="dialogVisible" title="Задача" align-center>
-			<el-input placeholder="Название задачи" v-model="name" type="text" />
-			<template #footer>
-				<div class="dialog-footer">
-					<el-button @click="dialogVisible = false">Cancel</el-button>
-					<el-button type="primary" @click="addTask"> Confirm </el-button>
+		<p-dialog
+			:style="{ width: '50vw' }"
+			:breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+			modal
+			v-model:visible="dialogVisible"
+		>
+			<template #header>
+				<div>
+					<span>Задача</span>
 				</div>
 			</template>
-		</el-dialog>
+			<p-input-text class="dialog-name" placeholder="Название задачи" v-model="name"></p-input-text>
+			<div class="dialog-buttons">
+				<p-button @click="dialogVisible = false">Отмена</p-button>
+				<p-button type="primary" @click="addTask">Создать</p-button>
+			</div>
+		</p-dialog>
+
 		<task-list></task-list>
 	</div>
 </template>
@@ -46,5 +55,16 @@ const addTask = async () => {
 <style scoped>
 .btn {
 	margin-bottom: 10px;
+}
+
+.dialog-name {
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.dialog-buttons {
+	display: flex;
+	gap: 5px;
+	justify-content: flex-end;
 }
 </style>

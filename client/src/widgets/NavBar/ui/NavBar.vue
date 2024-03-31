@@ -1,19 +1,17 @@
 <template>
 	<header class="header">
-		<div class="menu-button">
+		<!-- <div class="menu-button">
 			<el-button type="primary" circle :icon="Menu"></el-button>
 		</div>
 		<div class="buttons">
 			<el-button type="primary" circle @click="onLogout" :icon="User" />
-		</div>
+		</div> -->
 	</header>
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from '@/entities/user';
 import { useRouter } from 'vue-router';
-
-import { User, Menu } from '@element-plus/icons-vue';
 
 const userStore = useUserStore();
 const router = useRouter();

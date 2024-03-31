@@ -1,30 +1,45 @@
 <template>
 	<ul class="list">
-		<el-card
+		<p-card
 			v-for="task in taskStore.tasks"
 			:key="task.id"
 			class="card"
 			body-style="display: flex; align-items: center; height: 35px"
 			shadow="hover"
 		>
-			<p-checkbox v-model="checked" />
-			<el-text @click="toggleEdit">{{ task.name }}</el-text>
-			<el-button type="success" :icon="Edit" circle class="btn"></el-button>
-			<el-button @click="deleteTask(task)" type="danger" :icon="Delete" circle class="btn"></el-button>
-		</el-card>
+			<template #content>
+				<div class="item">
+					<div class="item-checkbox">
+						<p-checkbox @change="saveEdited(task)" v-model="task.completed" :binary="true" />
+					</div>
+
+					<p @click="toggleEdit">{{ task.name }}</p>
+					<div class="item-buttons">
+						<p-button rounded raised icon="pi pi-pencil" type="success" />
+						<p-button
+							severity="danger"
+							rounded
+							raised
+							icon="pi pi-trash"
+							@click="deleteTask(task)"
+							type="danger"
+						/>
+					</div>
+				</div>
+			</template>
+		</p-card>
 	</ul>
 </template>
 
 <script lang="ts">
 import { useTaskStore, type ITask } from '@/features/addTask';
 import { defineComponent } from 'vue';
-import { Delete, Edit } from '@element-plus/icons-vue';
 
 export default defineComponent({
 	setup() {
 		const taskStore = useTaskStore();
 
-		return { taskStore, Delete, Edit };
+		return { taskStore };
 	},
 
 	data() {
@@ -41,18 +56,9 @@ export default defineComponent({
 
 			await this.taskStore.deleteTask(task.id);
 			await this.taskStore.getTasks(task.userId);
-
-			console.log('delete');
-		},
-
-		toggleEdit() {
-			this.isEdit = !this.isEdit;
-			this.readonly = !this.isEdit;
 		},
 
 		async saveEdited(task: ITask) {
-			this.isEdit = !this.isEdit;
-
 			await this.taskStore.updateTask(task);
 			await this.taskStore.getTasks(task.userId);
 		}
@@ -64,6 +70,21 @@ export default defineComponent({
 .list {
 	display: flex;
 	flex-direction: column;
+	gap: 10px;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+}
+
+.item-checkbox {
+	margin-right: 15px;
+}
+
+.item-buttons {
+	margin-left: auto;
+	display: flex;
 	gap: 10px;
 }
 
