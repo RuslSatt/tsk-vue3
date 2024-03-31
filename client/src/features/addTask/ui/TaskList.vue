@@ -1,34 +1,37 @@
 <template>
 	<ul class="list">
-		<li v-for="task in taskStore.tasks" :key="task.id" class="item">
-			<el-input
-				@focusout="toggleEdit"
-				v-if="isEdit"
-				readonly="readonly"
-				v-model="task.name"
-				class="text"
-				type="text"
-			/>
-			<p v-else @click="toggleEdit">{{ task.name }}</p>
-		</li>
+		<el-card
+			v-for="task in taskStore.tasks"
+			:key="task.id"
+			class="card"
+			body-style="display: flex; align-items: center; height: 35px"
+			shadow="hover"
+		>
+			<p-checkbox v-model="checked" />
+			<el-text @click="toggleEdit">{{ task.name }}</el-text>
+			<el-button type="success" :icon="Edit" circle class="btn"></el-button>
+			<el-button @click="deleteTask(task)" type="danger" :icon="Delete" circle class="btn"></el-button>
+		</el-card>
 	</ul>
 </template>
 
 <script lang="ts">
 import { useTaskStore, type ITask } from '@/features/addTask';
 import { defineComponent } from 'vue';
+import { Delete, Edit } from '@element-plus/icons-vue';
 
 export default defineComponent({
 	setup() {
 		const taskStore = useTaskStore();
 
-		return { taskStore };
+		return { taskStore, Delete, Edit };
 	},
 
 	data() {
 		return {
 			isEdit: false,
-			readonly: true
+			readonly: true,
+			checked: false
 		};
 	},
 
@@ -64,35 +67,16 @@ export default defineComponent({
 	gap: 10px;
 }
 
-.item {
-	background-color: var(--bluegray-200);
-	min-height: 30px;
-	display: flex;
-	align-items: center;
-	padding: 5px;
-	border-radius: 5px;
+.card {
+	cursor: pointer;
 }
 
-.text {
-	background-color: var(--bluegray-200);
-	border: none;
+.btn {
+	margin-left: auto;
 }
 
 .btn-container {
 	display: flex;
 	margin-left: auto;
 }
-
-/* .btn {
-	padding: 5px;
-	background-color: var(--bluegray-500);
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s;
-	color: #fafafa;
-}
-
-.btn:hover {
-	background-color: var(--bluegray-600);
-} */
 </style>
