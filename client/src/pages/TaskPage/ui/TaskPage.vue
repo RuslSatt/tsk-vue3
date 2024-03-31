@@ -1,7 +1,16 @@
 <template>
 	<div>
-		<p-button class="btn" @click="addTask"> Добавить задачу </p-button>
-		<p-input-text v-model="name" type="text" />
+		<el-button class="btn" @click="dialogVisible = true"> Добавить задачу </el-button>
+
+		<el-dialog v-model="dialogVisible" title="Задача" align-center>
+			<el-input placeholder="Название задачи" v-model="name" type="text" />
+			<template #footer>
+				<div class="dialog-footer">
+					<el-button @click="dialogVisible = false">Cancel</el-button>
+					<el-button type="primary" @click="addTask"> Confirm </el-button>
+				</div>
+			</template>
+		</el-dialog>
 		<task-list></task-list>
 	</div>
 </template>
@@ -13,6 +22,7 @@ import { useUserStore } from '@/entities/user';
 import { ref } from 'vue';
 
 const name = ref('');
+const dialogVisible = ref(false);
 
 const taskStore = useTaskStore();
 const userStore = useUserStore();
@@ -28,6 +38,8 @@ const addTask = async () => {
 	};
 
 	taskStore.create(task);
+
+	dialogVisible.value = false;
 };
 </script>
 

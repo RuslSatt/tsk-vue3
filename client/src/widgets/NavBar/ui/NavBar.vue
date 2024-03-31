@@ -1,18 +1,10 @@
 <template>
 	<header class="header">
 		<div class="menu-button">
-			<p-button
-				@click="$emit('hideMenu')"
-				class="icon"
-				severity="secondary"
-				text
-				rounded
-				icon="pi pi-bars"
-			></p-button>
+			<el-button type="primary" circle :icon="Menu"></el-button>
 		</div>
 		<div class="buttons">
-			<p-button class="icon" severity="secondary" text rounded icon="pi pi-user"></p-button>
-			<p-button @click="onLogout" class="icon" severity="secondary" text rounded icon="pi pi-sign-out"></p-button>
+			<el-button type="primary" circle @click="onLogout" :icon="User" />
 		</div>
 	</header>
 </template>
@@ -20,6 +12,8 @@
 <script setup lang="ts">
 import { useUserStore } from '@/entities/user';
 import { useRouter } from 'vue-router';
+
+import { User, Menu } from '@element-plus/icons-vue';
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -44,12 +38,5 @@ const onLogout = () => {
 	margin-left: auto;
 	display: flex;
 	gap: 10px;
-}
-
-.icon {
-	width: 2rem;
-	height: 2rem;
-	padding: 0.1rem;
-	color: var(--text-color);
 }
 </style>

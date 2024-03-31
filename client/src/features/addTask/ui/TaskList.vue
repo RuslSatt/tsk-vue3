@@ -1,13 +1,15 @@
 <template>
 	<ul class="list">
 		<li v-for="task in taskStore.tasks" :key="task.id" class="item">
-			<input :readonly="readonly" v-model="task.name" class="text" type="text" />
-			<div class="btn-container">
-				<button @click="saveEdited(task)" v-if="isEdit" class="btn green">Save</button>
-				<button @click="toggleEdit" v-else class="btn green">Edit</button>
-
-				<button @click="deleteTask(task)" class="btn">Delete</button>
-			</div>
+			<el-input
+				@focusout="toggleEdit"
+				v-if="isEdit"
+				readonly="readonly"
+				v-model="task.name"
+				class="text"
+				type="text"
+			/>
+			<p v-else @click="toggleEdit">{{ task.name }}</p>
 		</li>
 	</ul>
 </template>
@@ -78,11 +80,10 @@ export default defineComponent({
 
 .btn-container {
 	display: flex;
-	gap: 10px;
 	margin-left: auto;
 }
 
-.btn {
+/* .btn {
 	padding: 5px;
 	background-color: var(--bluegray-500);
 	border-radius: 5px;
@@ -93,5 +94,5 @@ export default defineComponent({
 
 .btn:hover {
 	background-color: var(--bluegray-600);
-}
+} */
 </style>

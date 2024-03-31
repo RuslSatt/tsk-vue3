@@ -1,35 +1,28 @@
 <template>
-	<p-menu
-		style="
-			flex: 0 0 240px;
-			background-color: var(--surface-300);
-			position: relative;
-			transition: 0.15s;
-			border-radius: 0;
-			border: 0;
-		"
-		class="sidebar"
-		:model="items"
-	>
-	</p-menu>
+	<el-row>
+		<el-col :span="12">
+			<el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+				<el-menu-item index="1">
+					<el-icon><icon-menu /></el-icon>
+					<span>Главная</span>
+				</el-menu-item>
+				<el-menu-item index="2">
+					<el-icon><document /></el-icon>
+					<span>Задачи</span>
+				</el-menu-item>
+			</el-menu>
+		</el-col>
+	</el-row>
 </template>
 
-<script setup lang="ts">
-import { SidebarItems } from '../model/items';
-
-const items = SidebarItems;
+<script lang="ts" setup>
+import { Document, Menu as IconMenu } from '@element-plus/icons-vue';
+const handleOpen = (key: string, keyPath: string[]) => {
+	console.log(key, keyPath);
+};
+const handleClose = (key: string, keyPath: string[]) => {
+	console.log(key, keyPath);
+};
 </script>
 
-<style scoped>
-.p-menu {
-	flex: 0 0 240px;
-	background-color: var(--surface-300);
-	position: relative;
-	transition: 0.15s;
-	border-radius: none;
-}
-
-.hide {
-	flex: 0 0 0;
-}
-</style>
+<style scoped></style>
