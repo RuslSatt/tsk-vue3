@@ -21,11 +21,13 @@
 		</p-dialog>
 
 		<task-list></task-list>
+		<task-page></task-page>
 	</div>
 </template>
 
 <script setup lang="ts">
 import TaskList from '@/features/addTask';
+import TaskPage from '@/entities/task';
 import { useTaskStore, type ITask } from '@/features/addTask';
 import { useUserStore } from '@/entities/user';
 import { ref } from 'vue';

@@ -26,7 +26,7 @@ const onLogout = () => {
 <style scoped>
 .header {
 	min-height: 30px;
-	background-color: var(--surface-300);
+	background-color: var(--surface-100);
 	display: flex;
 	align-items: center;
 	padding: 5px 10px;

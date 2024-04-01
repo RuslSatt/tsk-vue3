@@ -15,7 +15,6 @@
 
 					<p>{{ task.name }}</p>
 					<div class="item-buttons">
-						<p-button rounded raised icon="pi pi-pencil" type="success" />
 						<p-button
 							severity="danger"
 							rounded
@@ -76,6 +75,7 @@ export default defineComponent({
 .item {
 	display: flex;
 	align-items: center;
+	height: 10px;
 }
 
 .item-checkbox {

@@ -1,6 +1,6 @@
 import AuthView from '@/pages/AuthPage';
 import HomeView from '@/pages/HomePage';
-import TaskPage from '@/pages/TaskPage';
+import TasksView from '@/pages/TasksView';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -16,7 +16,7 @@ const router = createRouter({
 			children: [
 				{
 					path: 'tasks',
-					component: TaskPage
+					component: TasksView
 				}
 			]
 		}

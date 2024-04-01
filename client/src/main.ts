@@ -8,7 +8,7 @@ import PrimeVue from 'primevue/config';
 import { registrationComponents } from './shared/ui/components';
 import { createPinia } from 'pinia';
 
-import 'primevue/resources/themes/aura-light-green/theme.css';
+import 'primevue/resources/themes/aura-dark-green/theme.css';
 import 'primeicons/primeicons.css';
 
 export const app = createApp(App);
