@@ -4,7 +4,7 @@
 		<div class="main">
 			<side-bar></side-bar>
 			<div class="main__content">
-				<task-page />
+				<router-view></router-view>
 			</div>
 		</div>
 	</div>
@@ -16,7 +16,6 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import NavBar from '@/widgets/Navbar';
 import SideBar from '@/widgets/SideBar';
-import TaskPage from '@/pages/TaskPage/ui/TaskPage.vue';
 import { useTaskStore } from '@/features/addTask';
 
 const userStore = useUserStore();

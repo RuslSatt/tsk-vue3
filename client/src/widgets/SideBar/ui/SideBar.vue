@@ -2,22 +2,22 @@
 	<div class="sidebar">
 		<ul class="sidebar__list">
 			<li class="sidebar__item">
-				<a class="sidebar__item-link" href="#">
+				<router-link to="/main" class="sidebar__item-link">
 					<i class="pi pi-home"></i>
 					<span>Главная</span>
-				</a>
+				</router-link>
 			</li>
 			<li class="sidebar__item">
-				<a class="sidebar__item-link" href="#">
+				<router-link to="/projects" class="sidebar__item-link">
 					<i class="pi pi-th-large"></i>
 					<span>Проекты</span>
-				</a>
+				</router-link>
 			</li>
 			<li class="sidebar__item">
-				<a class="sidebar__item-link" href="#">
+				<router-link to="/tasks" class="sidebar__item-link">
 					<i class="pi pi-list"></i>
 					<span>Задачи</span>
-				</a>
+				</router-link>
 			</li>
 		</ul>
 	</div>
