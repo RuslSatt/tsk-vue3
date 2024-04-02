@@ -1,6 +1,7 @@
 <template>
 	<ul class="list">
 		<p-card
+			@click="select(task)"
 			v-for="task in taskStore.tasks"
 			:key="task.id"
 			class="card"
@@ -28,41 +29,32 @@
 			</template>
 		</p-card>
 	</ul>
+
+	<task-page></task-page>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useTaskStore, type ITask } from '@/features/addTask';
-import { defineComponent } from 'vue';
+import TaskPage from '@/entities/task';
 
-export default defineComponent({
-	setup() {
-		const taskStore = useTaskStore();
+const taskStore = useTaskStore();
 
-		return { taskStore };
-	},
+const deleteTask = async (task: ITask) => {
+	if (!task.id) return;
 
-	data() {
-		return {
-			isEdit: false,
-			readonly: true,
-			checked: false
-		};
-	},
+	await taskStore.deleteTask(task.id);
+	await taskStore.getTasks(task.userId);
+};
 
-	methods: {
-		async deleteTask(task: ITask) {
-			if (!task.id) return;
+const saveEdited = async (task: ITask) => {
+	await taskStore.updateTask(task);
+	await taskStore.getTasks(task.userId);
+};
 
-			await this.taskStore.deleteTask(task.id);
-			await this.taskStore.getTasks(task.userId);
-		},
-
-		async saveEdited(task: ITask) {
-			await this.taskStore.updateTask(task);
-			await this.taskStore.getTasks(task.userId);
-		}
-	}
-});
+const select = async (task: ITask) => {
+	taskStore.selectTask(task);
+	taskStore.isOpenPage = true;
+};
 </script>
 
 <style scoped>

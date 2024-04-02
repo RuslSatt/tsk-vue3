@@ -7,6 +7,8 @@ export interface ITask {
 
 export interface ITaskSchema {
 	tasks: ITask[];
+	selectedTask?: ITask;
+	isOpenPage: boolean;
 	isLoading: boolean;
 	error: string;
 }

@@ -5,6 +5,8 @@ import type { ITaskSchema } from '../types/task';
 
 const initialState: ITaskSchema = {
 	tasks: [],
+	selectedTask: undefined,
+	isOpenPage: false,
 	isLoading: false,
 	error: ''
 };
@@ -54,6 +56,10 @@ export const useTaskStore = defineStore('task', {
 				this.error = e.message;
 			}
 			this.isLoading = false;
+		},
+
+		selectTask(task: ITask | undefined) {
+			this.selectedTask = task;
 		}
 	}
 });
