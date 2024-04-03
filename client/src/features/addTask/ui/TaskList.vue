@@ -51,7 +51,7 @@ const saveEdited = async (task: ITask) => {
 	await taskStore.getTasks(task.userId);
 };
 
-const select = async (task: ITask) => {
+const select = (task: ITask) => {
 	taskStore.selectTask(task);
 	taskStore.isOpenPage = true;
 };

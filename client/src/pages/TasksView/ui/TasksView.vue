@@ -40,16 +40,17 @@ const userStore = useUserStore();
 const addTask = async () => {
 	const authUser = userStore.getUser;
 
-	if (!authUser) return;
+	if (authUser) {
+		const task: ITask = {
+			name: name.value,
+			userId: authUser.user.id,
+			completed: false
+		};
 
-	const task: ITask = {
-		name: name.value,
-		userId: authUser.user.id,
-		completed: false
-	};
+		taskStore.create(task);
+	}
 
-	taskStore.create(task);
-
+	name.value = '';
 	dialogVisible.value = false;
 };
 </script>
