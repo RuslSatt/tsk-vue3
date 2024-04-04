@@ -3,6 +3,7 @@ export interface ITask {
 	completed: boolean;
 	name: string;
 	userId: number;
+	deadline: Date | undefined;
 }
 
 export interface ITaskSchema {

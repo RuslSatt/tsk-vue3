@@ -44,7 +44,8 @@ const addTask = async () => {
 		const task: ITask = {
 			name: name.value,
 			userId: authUser.user.id,
-			completed: false
+			completed: false,
+			deadline: undefined
 		};
 
 		taskStore.create(task);

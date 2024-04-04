@@ -13,8 +13,8 @@ export class TasksService {
     }
 
     async getById(userId: number) {
-        const task = await this.taskModel.findAll({ where: { userId }, include: { all: true } });
-        return task;
+        const tasks = await this.taskModel.findAll({ where: { userId }, include: { all: true } });
+        return tasks;
     }
 
     async update(task: Task) {
