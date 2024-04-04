@@ -1,4 +1,4 @@
-import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/users/users.model';
 
 interface TaskCreationAttrs {
@@ -16,6 +16,9 @@ export class Task extends Model<Task, TaskCreationAttrs> {
 
     @Column({ type: DataType.BOOLEAN })
     completed: boolean;
+
+    @Column({ type: DataType.DATE })
+    deadline: Date;
 
     @ForeignKey(() => User)
     @Column({ type: DataType.INTEGER })
