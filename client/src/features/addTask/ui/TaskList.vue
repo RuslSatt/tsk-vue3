@@ -10,7 +10,7 @@
 		>
 			<template #content>
 				<div class="item">
-					<div class="item-checkbox">
+					<div @click="$event.stopPropagation()" class="item-checkbox">
 						<p-checkbox @change="saveEdited(task)" v-model="task.completed" :binary="true" />
 					</div>
 
@@ -21,7 +21,7 @@
 							rounded
 							raised
 							icon="pi pi-trash"
-							@click="deleteTask(task)"
+							@click="deleteTask(task, $event)"
 							type="danger"
 						/>
 					</div>
@@ -39,7 +39,9 @@ import TaskPage from '@/entities/task';
 
 const taskStore = useTaskStore();
 
-const deleteTask = async (task: ITask) => {
+const deleteTask = async (task: ITask, e: Event) => {
+	e.stopPropagation();
+
 	if (!task.id) return;
 
 	await taskStore.deleteTask(task.id);
