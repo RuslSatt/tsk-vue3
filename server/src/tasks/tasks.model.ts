@@ -6,6 +6,8 @@ interface TaskCreationAttrs {
     userId: number;
 }
 
+type Priority = 'low' | 'medium' | 'high';
+
 @Table({ tableName: 'tasks' })
 export class Task extends Model<Task, TaskCreationAttrs> {
     @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
@@ -19,6 +21,9 @@ export class Task extends Model<Task, TaskCreationAttrs> {
 
     @Column({ type: DataType.DATE })
     deadline: Date;
+
+    @Column({ type: DataType.STRING })
+    priority: Priority;
 
     @ForeignKey(() => User)
     @Column({ type: DataType.INTEGER })
