@@ -23,15 +23,55 @@
 					></p-calendar>
 				</div>
 			</div>
+			<div class="content__item">
+				<span class="item__name">Приоритет</span>
+				<div @click.stop="togglePriority" class="item__field">
+					<div class="item__field_value">
+						{{ taskStore.selectedTask.priority }}
+					</div>
+					<p-menu
+						ref="priorityMenu"
+						:model="priorityItems"
+						@update:modelValue="editTask"
+						:popup="true"
+					></p-menu>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { useTaskStore } from '@/features/addTask';
+import { useTaskStore, type TaskPriority } from '@/features/addTask';
 import { ref } from 'vue';
 
 const taskStore = useTaskStore();
+
+const selectMenu = (label: TaskPriority) => {
+	if (taskStore.selectedTask) {
+		taskStore.selectedTask.priority = label;
+		editTask();
+	}
+};
+
+const priorityMenu = ref();
+const priorityItems = ref([
+	{
+		label: 'Низкий',
+		code: 'NY',
+		command: () => selectMenu('Низкий')
+	},
+	{
+		label: 'Средний',
+		code: 'RM',
+		command: () => selectMenu('Средний')
+	},
+	{
+		label: 'Высокий',
+		code: 'LDN',
+		command: () => selectMenu('Высокий')
+	}
+]);
 
 const open = ref(false);
 
@@ -39,6 +79,7 @@ const closePage = () => (taskStore.isOpenPage = false);
 
 const editTask = async () => {
 	if (!taskStore.selectedTask) return;
+
 	await taskStore.updateTask(taskStore.selectedTask);
 };
 
@@ -46,8 +87,13 @@ const toggleCalendar = () => {
 	open.value = !open.value;
 };
 
+const togglePriority = (event: Event) => {
+	priorityMenu.value.toggle(event);
+};
+
 const closeItems = () => {
 	open.value = false;
+	priorityMenu.value.hide();
 };
 </script>
 
@@ -89,6 +135,11 @@ const closeItems = () => {
 .content__item_title {
 	font-size: 32px;
 	margin-bottom: 20px;
+	width: 100%;
+}
+
+.content__item_title input {
+	width: 100%;
 }
 
 .content__item {
