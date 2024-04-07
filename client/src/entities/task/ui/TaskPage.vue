@@ -13,14 +13,7 @@
 					<div class="item__field_value">
 						{{ taskStore.selectedTask.deadline?.toLocaleString() }}
 					</div>
-					<p-calendar
-						class="item__value_calendar"
-						:class="{ open: open }"
-						dateFormat="dd.mm.yy"
-						v-model="taskStore.selectedTask.deadline"
-						@update:modelValue="editTask"
-						inline
-					></p-calendar>
+					<task-calendar :open="open" :editTask="editTask"> </task-calendar>
 				</div>
 			</div>
 			<div class="content__item">
@@ -43,6 +36,7 @@
 
 <script setup lang="ts">
 import { useTaskStore, type TaskPriority } from '@/features/addTask';
+import TaskCalendar from './TaskCalendar.vue';
 import { ref } from 'vue';
 
 const taskStore = useTaskStore();
@@ -85,10 +79,12 @@ const editTask = async () => {
 
 const toggleCalendar = () => {
 	open.value = !open.value;
+	priorityMenu.value.hide();
 };
 
 const togglePriority = (event: Event) => {
 	priorityMenu.value.toggle(event);
+	open.value = false;
 };
 
 const closeItems = () => {
@@ -151,6 +147,10 @@ const closeItems = () => {
 	width: 100%;
 }
 
+.item__name {
+	flex: 30%;
+}
+
 .item__field {
 	position: relative;
 	width: 100%;
@@ -177,6 +177,7 @@ const closeItems = () => {
 	position: absolute;
 	margin-top: 5px;
 	width: 300px;
+	z-index: 1000;
 }
 
 .item__value_calendar.open {
