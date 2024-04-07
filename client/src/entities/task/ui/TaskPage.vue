@@ -27,11 +27,13 @@
 				</div>
 			</div>
 		</div>
+		<comment-area :task="taskStore.selectedTask"></comment-area>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { useTaskStore, type TaskPriority } from '@/features/addTask';
+import CommentArea from '@/features/addComment/ui/CommentArea.vue';
 import TaskCalendar from './TaskCalendar.vue';
 import TaskHeader from './header/TaskHeader.vue';
 import TaskTitle from './TaskTitle.vue';
@@ -102,6 +104,9 @@ const closeItems = () => {
 	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
 	transform: translateX(100%);
 	transition: transform 0.3s;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
 }
 
 .task.open {

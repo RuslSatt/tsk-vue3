@@ -8,6 +8,7 @@ import Card from 'primevue/card';
 import Password from 'primevue/password';
 import Calendar from 'primevue/calendar';
 import Menu from 'primevue/menu';
+import Editor from 'primevue/editor';
 
 export function registrationComponents() {
 	app.component('p-checkbox', Checkbox);
@@ -18,4 +19,5 @@ export function registrationComponents() {
 	app.component('p-password', Password);
 	app.component('p-calendar', Calendar);
 	app.component('p-menu', Menu);
+	app.component('p-editor', Editor);
 }
