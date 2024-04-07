@@ -37,9 +37,12 @@
 <script setup lang="ts">
 import { useTaskStore, type TaskPriority } from '@/features/addTask';
 import TaskCalendar from './TaskCalendar.vue';
+
 import { ref } from 'vue';
 
 const taskStore = useTaskStore();
+
+const open = ref(false);
 
 const selectMenu = (label: TaskPriority) => {
 	if (taskStore.selectedTask) {
@@ -66,9 +69,6 @@ const priorityItems = ref([
 		command: () => selectMenu('Высокий')
 	}
 ]);
-
-const open = ref(false);
-
 const closePage = () => (taskStore.isOpenPage = false);
 
 const editTask = async () => {
@@ -170,17 +170,5 @@ const closeItems = () => {
 
 .item__field_value:hover {
 	background-color: var(--surface-200);
-}
-
-.item__value_calendar {
-	display: none;
-	position: absolute;
-	margin-top: 5px;
-	width: 300px;
-	z-index: 1000;
-}
-
-.item__value_calendar.open {
-	display: block;
 }
 </style>
