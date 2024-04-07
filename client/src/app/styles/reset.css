@@ -131,4 +131,7 @@
 	button {
 		all: unset;
 	}
+	textarea {
+		all: unset;
+	}
 }

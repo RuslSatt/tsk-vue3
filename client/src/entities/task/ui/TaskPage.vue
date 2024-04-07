@@ -1,12 +1,8 @@
 <template>
 	<div @click="closeItems" v-if="taskStore.selectedTask" :class="{ open: taskStore.isOpenPage }" class="task">
-		<header class="task__header">
-			<p-button @click="closePage" text icon="pi pi-angle-double-right"></p-button>
-		</header>
+		<task-header></task-header>
 		<div class="task__content">
-			<div class="content__item_title">
-				<input @input="editTask" v-model="taskStore.selectedTask.name" />
-			</div>
+			<task-title></task-title>
 			<div class="content__item">
 				<span class="item__name">Дата</span>
 				<div @click.stop="toggleCalendar" class="item__field">
@@ -37,6 +33,8 @@
 <script setup lang="ts">
 import { useTaskStore, type TaskPriority } from '@/features/addTask';
 import TaskCalendar from './TaskCalendar.vue';
+import TaskHeader from './header/TaskHeader.vue';
+import TaskTitle from './TaskTitle.vue';
 
 import { ref } from 'vue';
 
@@ -69,7 +67,6 @@ const priorityItems = ref([
 		command: () => selectMenu('Высокий')
 	}
 ]);
-const closePage = () => (taskStore.isOpenPage = false);
 
 const editTask = async () => {
 	if (!taskStore.selectedTask) return;
@@ -111,14 +108,6 @@ const closeItems = () => {
 	transform: translateX(0%);
 }
 
-.task__header {
-	height: 40px;
-	display: flex;
-	align-items: center;
-	padding: 5px;
-	margin-bottom: 20px;
-}
-
 .task__content {
 	display: flex;
 	flex-direction: column;
@@ -126,16 +115,6 @@ const closeItems = () => {
 	width: 100%;
 	padding: 10px 40px;
 	gap: 10px;
-}
-
-.content__item_title {
-	font-size: 32px;
-	margin-bottom: 20px;
-	width: 100%;
-}
-
-.content__item_title input {
-	width: 100%;
 }
 
 .content__item {
