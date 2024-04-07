@@ -1,4 +1,5 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
+import { Comment } from 'src/comments/comments.model';
 import { User } from 'src/users/users.model';
 
 interface TaskCreationAttrs {
@@ -31,4 +32,7 @@ export class Task extends Model<Task, TaskCreationAttrs> {
 
     @BelongsTo(() => User)
     user: User;
+
+    @HasMany(() => Comment)
+    comments: Comment[];
 }
