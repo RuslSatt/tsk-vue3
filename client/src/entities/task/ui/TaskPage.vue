@@ -26,17 +26,20 @@
 					></p-menu>
 				</div>
 			</div>
+			<comments-list></comments-list>
+			<comment-area :task="taskStore.selectedTask"></comment-area>
 		</div>
-		<comment-area :task="taskStore.selectedTask"></comment-area>
+
 	</div>
 </template>
 
 <script setup lang="ts">
-import { useTaskStore, type TaskPriority } from '@/features/addTask';
+import { type TaskPriority, useTaskStore } from '@/features/addTask';
 import CommentArea from '@/features/addComment/ui/CommentArea.vue';
 import TaskCalendar from './TaskCalendar.vue';
 import TaskHeader from './header/TaskHeader.vue';
 import TaskTitle from './TaskTitle.vue';
+import CommentsList from '@/entities/comment';
 
 import { ref } from 'vue';
 
@@ -120,6 +123,7 @@ const closeItems = () => {
 	width: 100%;
 	padding: 10px 40px;
 	gap: 10px;
+	overflow: auto;
 }
 
 .content__item {

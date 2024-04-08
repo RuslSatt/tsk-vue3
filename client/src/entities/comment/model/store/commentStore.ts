@@ -3,7 +3,7 @@ import { ref, type Ref } from 'vue';
 import type { IComment } from '../types/comment';
 import { CommentService } from '../services/commentServices';
 
-export const useCommentStore = defineStore('counter', () => {
+export const useCommentStore = defineStore('comment', () => {
 	const comments: Ref<IComment[]> = ref([]);
 	// const content: Ref<string> = ref('');
 
@@ -18,5 +18,9 @@ export const useCommentStore = defineStore('counter', () => {
 		await CommentService.delete(id);
 	}
 
-	return { comments, createComment };
+	async function getComments(taskId: number) {
+		comments.value = await CommentService.get(taskId);
+	}
+
+	return { comments, createComment, getComments, deleteComment };
 });

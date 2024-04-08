@@ -9,6 +9,7 @@ import Password from 'primevue/password';
 import Calendar from 'primevue/calendar';
 import Menu from 'primevue/menu';
 import Editor from 'primevue/editor';
+import Panel from 'primevue/panel';
 
 export function registrationComponents() {
 	app.component('p-checkbox', Checkbox);
@@ -20,4 +21,5 @@ export function registrationComponents() {
 	app.component('p-calendar', Calendar);
 	app.component('p-menu', Menu);
 	app.component('p-editor', Editor);
+	app.component('p-panel', Panel);
 }

@@ -4,7 +4,7 @@ export interface ITask {
 	name: string;
 	userId: number;
 	deadline: Date | undefined;
-	priority: TaskPriority;
+	priority: TaskPriority | undefined;
 }
 
 export type TaskPriority = 'Низкий' | 'Средний' | 'Высокий';

@@ -26,7 +26,7 @@ const addComment = async () => {
 			taskId: props.task.id
 		};
 
-		commentStore.createComment(comment);
+		await commentStore.createComment(comment);
 	}
 };
 </script>

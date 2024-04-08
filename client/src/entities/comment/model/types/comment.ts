@@ -1,4 +1,5 @@
 export interface IComment {
+	id?: number;
 	content: string;
 	taskId: number;
 }

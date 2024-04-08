@@ -25,9 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import TaskList from '@/features/addTask';
-
-import { useTaskStore, type ITask } from '@/features/addTask';
+import TaskList, { type ITask, useTaskStore } from '@/features/addTask';
 import { useUserStore } from '@/entities/user';
 import { ref } from 'vue';
 
@@ -45,10 +43,11 @@ const addTask = async () => {
 			name: name.value,
 			userId: authUser.user.id,
 			completed: false,
-			deadline: undefined
+			deadline: undefined,
+			priority: undefined
 		};
 
-		taskStore.create(task);
+		await taskStore.create(task);
 	}
 
 	name.value = '';

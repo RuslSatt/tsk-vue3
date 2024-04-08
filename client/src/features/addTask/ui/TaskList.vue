@@ -34,10 +34,12 @@
 </template>
 
 <script setup lang="ts">
-import { useTaskStore, type ITask } from '@/features/addTask';
+import { type ITask, useTaskStore } from '@/features/addTask';
+import { useCommentStore } from '@/entities/comment';
 import TaskPage from '@/entities/task';
 
 const taskStore = useTaskStore();
+const commentStore = useCommentStore();
 
 const deleteTask = async (task: ITask, e: Event) => {
 	e.stopPropagation();
@@ -53,9 +55,10 @@ const saveEdited = async (task: ITask) => {
 	await taskStore.getTasks(task.userId);
 };
 
-const select = (task: ITask) => {
+const select = async (task: ITask) => {
 	taskStore.selectTask(task);
 	taskStore.isOpenPage = true;
+	if (task.id) await commentStore.getComments(task.id);
 };
 </script>
 
@@ -84,14 +87,5 @@ const select = (task: ITask) => {
 
 .card {
 	cursor: pointer;
-}
-
-.btn {
-	margin-left: auto;
-}
-
-.btn-container {
-	display: flex;
-	margin-left: auto;
 }
 </style>

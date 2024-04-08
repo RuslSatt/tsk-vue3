@@ -36,9 +36,9 @@
 					></p-password>
 				</div>
 
-				<p-button v-on:click="handlerClick" class="button">{{
-					isLogin ? 'Войти' : 'Зарегистрироваться'
-				}}</p-button>
+				<p-button v-on:click="handlerClick" class="button"
+					>{{ isLogin ? 'Войти' : 'Зарегистрироваться' }}
+				</p-button>
 			</form>
 		</template>
 	</p-card>
@@ -49,7 +49,7 @@ import { ref } from 'vue';
 
 import { useAuthStore } from '../../model/store/authStore';
 import { useVuelidate } from '@vuelidate/core';
-import { required, email } from '@vuelidate/validators';
+import { email, required } from '@vuelidate/validators';
 
 const authStore = useAuthStore();
 
@@ -74,7 +74,7 @@ const handlerClick = async () => {
 		if (!result) return;
 	}
 
-	isLogin.value ? authStore.loginUser() : authStore.registrationUser();
+	isLogin.value ? await authStore.loginUser() : await authStore.registrationUser();
 };
 </script>
 
