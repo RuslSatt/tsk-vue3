@@ -5,7 +5,6 @@ import { CommentService } from '../services/commentServices';
 
 export const useCommentStore = defineStore('comment', () => {
 	const comments: Ref<IComment[]> = ref([]);
-	// const content: Ref<string> = ref('');
 
 	async function createComment(comment: IComment) {
 		const { content, taskId } = comment;
@@ -16,11 +15,16 @@ export const useCommentStore = defineStore('comment', () => {
 
 	async function deleteComment(id: number) {
 		await CommentService.delete(id);
+		comments.value = comments.value.filter((comment) => comment.id !== id);
 	}
 
 	async function getComments(taskId: number) {
 		comments.value = await CommentService.get(taskId);
 	}
 
-	return { comments, createComment, getComments, deleteComment };
+	async function editComment(comment: IComment) {
+		await CommentService.update(comment);
+	}
+
+	return { comments, createComment, getComments, deleteComment, editComment };
 });
