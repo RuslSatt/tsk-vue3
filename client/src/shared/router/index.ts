@@ -1,6 +1,6 @@
 import AuthView from '@/pages/AuthPage';
 import HomeView from '@/pages/HomePage';
-import TasksView from '@/pages/TasksView';
+import TasksView from 'src/pages/TasksPage';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
