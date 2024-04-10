@@ -25,9 +25,10 @@
 </template>
 
 <script setup lang="ts">
-import TaskList, { type ITask, useTaskStore } from '@/features/addTask';
+import { type ITask, useTaskStore } from '@/entities/task';
 import { useUserStore } from '@/entities/user';
 import { ref } from 'vue';
+import TaskList from '@/widgets/TaskList';
 
 const name = ref('');
 const dialogVisible = ref(false);

@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTaskStore, type ITask } from '@/features/addTask';
+import { type ITask, useTaskStore } from '@/entities/task';
 
 const taskStore = useTaskStore();
 

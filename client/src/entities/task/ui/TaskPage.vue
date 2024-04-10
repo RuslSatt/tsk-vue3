@@ -29,12 +29,11 @@
 			<comments-list></comments-list>
 			<comment-area :task="taskStore.selectedTask"></comment-area>
 		</div>
-
 	</div>
 </template>
 
 <script setup lang="ts">
-import { type TaskPriority, useTaskStore } from '@/features/addTask';
+import { type TaskPriority, useTaskStore } from '@/entities/task';
 import CommentArea from '@/features/addComment/ui/CommentArea.vue';
 import TaskCalendar from './TaskCalendar.vue';
 import TaskHeader from './header/TaskHeader.vue';

@@ -10,6 +10,10 @@ import Calendar from 'primevue/calendar';
 import Menu from 'primevue/menu';
 import Editor from 'primevue/editor';
 import Panel from 'primevue/panel';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import ColumnGroup from 'primevue/columngroup';
+import Row from 'primevue/row';
 
 export function registrationComponents() {
 	app.component('p-checkbox', Checkbox);
@@ -22,4 +26,8 @@ export function registrationComponents() {
 	app.component('p-menu', Menu);
 	app.component('p-editor', Editor);
 	app.component('p-panel', Panel);
+	app.component('p-table', DataTable);
+	app.component('p-table-column', Column);
+	app.component('p-table-column-group', ColumnGroup);
+	app.component('p-table-row', Row);
 }

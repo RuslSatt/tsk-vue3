@@ -1,7 +1,6 @@
-import type { ITask } from './../types/task';
+import type { ITask, ITaskSchema } from '../types/task';
 import { defineStore } from 'pinia';
 import { TaskService } from '../services/taskService';
-import type { ITaskSchema } from '../types/task';
 
 const initialState: ITaskSchema = {
 	tasks: [],

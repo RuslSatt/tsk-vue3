@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useTaskStore, type TaskPriority } from '@/features/addTask';
+import { type TaskPriority, useTaskStore } from '@/entities/task';
 
 const taskStore = useTaskStore();
 

@@ -16,7 +16,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import NavBar from '@/widgets/NavBar';
 import SideBar from '@/widgets/SideBar';
-import { useTaskStore } from '@/features/addTask';
+import { useTaskStore } from '@/entities/task';
 
 const userStore = useUserStore();
 const taskStore = useTaskStore();

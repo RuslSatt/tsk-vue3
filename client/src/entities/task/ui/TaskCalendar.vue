@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTaskStore } from '@/features/addTask';
+import { useTaskStore } from '@/entities/task';
 
 defineProps<{
 	editTask: Function;

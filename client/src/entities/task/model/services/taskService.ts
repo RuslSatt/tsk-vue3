@@ -1,5 +1,5 @@
 import { api } from '@/app/http';
-import type { ITask } from '../..';
+import type { ITask } from '@/entities/task';
 
 export class TaskService {
 	static async create(name: string, userId: number) {
