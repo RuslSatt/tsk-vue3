@@ -5,15 +5,23 @@
 			:value="taskStore.tasks"
 			showGridlines
 			dataKey="id"
-			selectionMode="single"
 			resizableColumns
 			columnResizeMode="fit"
 			@rowSelect="onSelect"
 			@rowUnselect="onRowUnselect"
+			editMode="cell"
+			@cell-edit-complete="onCellEditComplete"
 		>
-			<p-table-column field="name" header="Название"></p-table-column>
-			<p-table-column field="deadline" header="Дата"></p-table-column>
-			<p-table-column field="priority" header="Приоритет"></p-table-column>
+			<p-table-column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header">
+				<template #body="{ data, field }">
+					{{ data[field] }}
+				</template>
+				<template #editor="{ data, field }">
+					<template v-if="field === 'name'">
+						<p-input-text v-model="data[field]" autofocus />
+					</template>
+				</template>
+			</p-table-column>
 		</p-table>
 	</div>
 
@@ -23,9 +31,16 @@
 <script setup lang="ts">
 import TaskPage, { type ITask, useTaskStore } from '@/entities/task';
 import { useCommentStore } from '@/entities/comment';
+import { ref } from 'vue';
 
 const taskStore = useTaskStore();
 const commentStore = useCommentStore();
+
+const columns = ref([
+	{ field: 'name', header: 'Название' },
+	{ field: 'deadline', header: 'Дата' },
+	{ field: 'priority', header: 'Приоритет' }
+]);
 
 const deleteTask = async (task: ITask, e: Event) => {
 	e.stopPropagation();
@@ -37,8 +52,24 @@ const deleteTask = async (task: ITask, e: Event) => {
 };
 
 const saveEdited = async (task: ITask) => {
+	console.log(task);
 	await taskStore.updateTask(task);
 	await taskStore.getTasks(task.userId);
+};
+
+const onCellEditComplete = async (event: any) => {
+	let { data, newValue, field } = event;
+
+	switch (field) {
+		case 'name':
+			if (data[field] !== newValue) {
+				data[field] = newValue;
+				await saveEdited(data);
+			}
+			break;
+		default:
+			break;
+	}
 };
 
 const onSelect = async () => {

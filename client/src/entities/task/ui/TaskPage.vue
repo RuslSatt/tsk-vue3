@@ -1,33 +1,35 @@
 <template>
-	<div @click="closeItems" v-if="taskStore.selectedTask" :class="{ open: taskStore.isOpenPage }" class="task">
-		<task-header></task-header>
-		<div class="task__content">
-			<task-title></task-title>
-			<div class="content__item">
-				<span class="item__name">Дата</span>
-				<div @click.stop="toggleCalendar" class="item__field">
-					<div class="item__field_value">
-						{{ taskStore.selectedTask.deadline?.toLocaleString() }}
+	<div @click="closeItems" :class="{ open: taskStore.isOpenPage }" class="task">
+		<div v-if="taskStore.selectedTask">
+			<task-header></task-header>
+			<div class="task__content">
+				<task-title></task-title>
+				<div class="content__item">
+					<span class="item__name">Дата</span>
+					<div @click.stop="toggleCalendar" class="item__field">
+						<div class="item__field_value">
+							{{ taskStore.selectedTask.deadline?.toLocaleString() }}
+						</div>
+						<task-calendar :open="open" :editTask="editTask"></task-calendar>
 					</div>
-					<task-calendar :open="open" :editTask="editTask"> </task-calendar>
 				</div>
-			</div>
-			<div class="content__item">
-				<span class="item__name">Приоритет</span>
-				<div @click.stop="togglePriority" class="item__field">
-					<div class="item__field_value">
-						{{ taskStore.selectedTask.priority }}
+				<div class="content__item">
+					<span class="item__name">Приоритет</span>
+					<div @click.stop="togglePriority" class="item__field">
+						<div class="item__field_value">
+							{{ taskStore.selectedTask.priority }}
+						</div>
+						<p-menu
+							ref="priorityMenu"
+							:model="priorityItems"
+							@update:modelValue="editTask"
+							:popup="true"
+						></p-menu>
 					</div>
-					<p-menu
-						ref="priorityMenu"
-						:model="priorityItems"
-						@update:modelValue="editTask"
-						:popup="true"
-					></p-menu>
 				</div>
+				<comments-list></comments-list>
+				<comment-area :task="taskStore.selectedTask"></comment-area>
 			</div>
-			<comments-list></comments-list>
-			<comment-area :task="taskStore.selectedTask"></comment-area>
 		</div>
 	</div>
 </template>
