@@ -14,6 +14,8 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row';
+import Skeleton from 'primevue/skeleton';
+
 
 export function registrationComponents() {
 	app.component('p-checkbox', Checkbox);
@@ -30,4 +32,5 @@ export function registrationComponents() {
 	app.component('p-table-column', Column);
 	app.component('p-table-column-group', ColumnGroup);
 	app.component('p-table-row', Row);
+	app.component('p-skeleton', Skeleton);
 }

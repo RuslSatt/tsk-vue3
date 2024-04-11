@@ -1,6 +1,6 @@
 <template>
 	<div @click="closeItems" :class="{ open: taskStore.isOpenPage }" class="task">
-		<div v-if="taskStore.selectedTask">
+		<div class="task-container" v-if="taskStore.selectedTask">
 			<task-header></task-header>
 			<div class="task__content">
 				<task-title></task-title>
@@ -31,6 +31,13 @@
 				<comment-area :task="taskStore.selectedTask"></comment-area>
 			</div>
 		</div>
+		<div v-else>
+			<p-skeleton class="mb-2"></p-skeleton>
+			<p-skeleton width="10rem" class="mb-2"></p-skeleton>
+			<p-skeleton width="5rem" class="mb-2"></p-skeleton>
+			<p-skeleton height="2rem" class="mb-2"></p-skeleton>
+			<p-skeleton width="10rem" height="4rem"></p-skeleton>
+		</div>
 	</div>
 </template>
 
@@ -42,11 +49,15 @@ import TaskHeader from './header/TaskHeader.vue';
 import TaskTitle from './TaskTitle.vue';
 import CommentsList from '@/entities/comment';
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const taskStore = useTaskStore();
 
 const open = ref(false);
+
+watch(open, async () => {
+	// Логика по загрузке данных о задаче
+});
 
 const selectMenu = (label: TaskPriority) => {
 	if (taskStore.selectedTask) {
@@ -115,6 +126,13 @@ const closeItems = () => {
 
 .task.open {
 	transform: translateX(0%);
+}
+
+.task-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
 }
 
 .task__content {

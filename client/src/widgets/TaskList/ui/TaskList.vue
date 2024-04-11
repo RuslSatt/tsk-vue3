@@ -1,24 +1,33 @@
 <template>
-	<div class="list">
+	<div class="task-list">
 		<p-table
-			v-model:selection="taskStore.selectedTask"
+			v-if="taskStore.tasks.length > 0"
+			class="task-list-table"
 			:value="taskStore.tasks"
 			showGridlines
 			dataKey="id"
 			resizableColumns
 			columnResizeMode="fit"
-			@rowSelect="onSelect"
-			@rowUnselect="onRowUnselect"
 			editMode="cell"
 			@cell-edit-complete="onCellEditComplete"
 		>
 			<p-table-column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header">
 				<template #body="{ data, field }">
-					{{ data[field] }}
+					<div class="task-table-cell">
+						{{ data[field] }}
+						<p-button
+							v-if="field === 'name'"
+							@click.stop="onSelect(data)"
+							class="task-page-btn"
+							raised
+							icon="pi pi-clone"
+						>
+						</p-button>
+					</div>
 				</template>
 				<template #editor="{ data, field }">
 					<template v-if="field === 'name'">
-						<p-input-text v-model="data[field]" autofocus />
+						<p-input-text class="task-input-editor" v-model="data[field]" />
 					</template>
 				</template>
 			</p-table-column>
@@ -72,40 +81,42 @@ const onCellEditComplete = async (event: any) => {
 	}
 };
 
-const onSelect = async () => {
+const onSelect = async (task: ITask) => {
 	taskStore.isOpenPage = true;
+	taskStore.selectTask(task);
 	if (taskStore.selectedTask?.id) await commentStore.getComments(taskStore.selectedTask.id);
-};
-
-const onRowUnselect = () => {
-	taskStore.isOpenPage = false;
 };
 </script>
 
 <style scoped>
-.list {
+.task-list {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 }
 
-.item {
+tr:hover .task-page-btn {
+	display: flex;
+}
+
+.task-input-editor {
+	padding: 5px;
+	margin: 0 0
+}
+
+.task-page-btn {
+	display: none;
+	position: absolute;
+	right: -10px;
+	z-index: 10;
+	margin-left: auto;
+	height: 2rem;
+	width: 3rem;
+}
+
+.task-table-cell {
+	position: relative;
 	display: flex;
 	align-items: center;
-	height: 10px;
-}
-
-.item-checkbox {
-	margin-right: 15px;
-}
-
-.item-buttons {
-	margin-left: auto;
-	display: flex;
-	gap: 10px;
-}
-
-.card {
-	cursor: pointer;
 }
 </style>
